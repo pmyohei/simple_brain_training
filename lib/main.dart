@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'ui/play_home.dart';
+import 'view/play_home.dart';
 
 void main() {
   runApp(const SimpleBrainTrainingApp());

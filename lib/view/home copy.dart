@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:simple_brain_training/trainingLogic/question.dart';
 
-class PlayHome extends StatefulWidget {
-  const PlayHome({super.key, required this.title});
+class Home extends StatefulWidget {
+  const Home({super.key, required this.title});
 
   final String title;
 
   @override
-  State<PlayHome> createState() => _PlayHomeState();
+  State<Home> createState() => _HomeState();
 }
 
 // 演算子
@@ -36,7 +36,7 @@ extension OperationSelectorExt on OperationSelector {
 //   OperationSelector.division: '÷'
 // };
 
-class _PlayHomeState extends State<PlayHome> {
+class _HomeState extends State<Home> {
   // ユーザー選択演算子
   OperationSelector? _operation = OperationSelector.plus;
 
@@ -48,7 +48,7 @@ class _PlayHomeState extends State<PlayHome> {
   // 回答数
   int _answer_counter = 0;
 
-  _PlayHomeState() {
+  _HomeState() {
     _initPlayData();
   }
 

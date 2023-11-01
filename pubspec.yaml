@@ -10,7 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  hooks_riverpod: ^1.0.3
+  stop_watch_timer:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:

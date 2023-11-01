@@ -1,7 +1,5 @@
 import 'dart:math' as math;
 
-import '../view/app.dart';
-
 class Question {
   Question() {
     init();
@@ -11,24 +9,6 @@ class Question {
    * 出題情報初期化
    */
   void init() {}
-
-  /*
-   * 計算式（足し算）の取得
-   */
-  String getFormula(OperationSelector? operation) {
-    switch (operation) {
-      case OperationSelector.plus:
-        return getPlusFormula();
-      case OperationSelector.minus:
-        return getMinusFormula();
-      case OperationSelector.multiplication:
-        return getMultiFormula();
-      case OperationSelector.division:
-        return getDivisionFormula();
-      default:
-        return ""; //★
-    }
-  }
 
   /*
    * 計算式（足し算）の取得

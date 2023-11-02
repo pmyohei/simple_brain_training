@@ -49,8 +49,6 @@ class TrainingInfo extends ChangeNotifier {
 }
 
 class SimpleBrainTrainingApp extends ConsumerWidget {
-  // const SimpleBrainTrainingApp({super.key});
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //------------------------
@@ -68,7 +66,8 @@ class SimpleBrainTrainingApp extends ConsumerWidget {
     return MaterialApp(
       title: 'Simple BrainTraining',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme:
+            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 208, 180, 255)),
         useMaterial3: true,
       ),
       home: page,

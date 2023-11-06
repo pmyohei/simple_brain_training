@@ -1,10 +1,14 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+// Package imports:
+// ignore: depend_on_referenced_packages
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
-import '../trainingLogic/question.dart';
 import './app.dart';
+// Project imports:
+import '../trainingLogic/question.dart';
 
 class Training extends HookConsumerWidget {
   // ストップウォッチタイマー
@@ -20,16 +24,16 @@ class Training extends HookConsumerWidget {
     // 状態管理
     //------------------------
     // トレーニング情報
-    var trainingInfoProvider = ref.watch(TrainingInfoProvider);
-    var operation = trainingInfoProvider.operation;
+    final trainingInfoProvider = ref.watch(kTrainingInfoProvider);
+    final operation = trainingInfoProvider.operation;
     // タイマー
     // final timerDisplay = useState('00:00:00.000');
     // 回答数
-    final _answerCounter = useState(0);
+    final answerCounter = useState(0);
     // 計算式
-    final _quiestion1 = useState(Question().getFormula(operation));
-    final _quiestion2 = useState(Question().getFormula(operation));
-    final _quiestion3 = useState(Question().getFormula(operation));
+    final quiestion1 = useState(Question().getFormula(operation));
+    final quiestion2 = useState(Question().getFormula(operation));
+    final quiestion3 = useState(Question().getFormula(operation));
 
     //------------------------
     // トレーニング画面
@@ -66,7 +70,7 @@ class Training extends HookConsumerWidget {
             //------------------------
             // 画面上部
             //------------------------
-            Container(
+            DecoratedBox(
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.yellow),
               ),
@@ -103,7 +107,7 @@ class Training extends HookConsumerWidget {
                     'Answers',
                   ),
                   Text(
-                    _answerCounter.value.toString(),
+                    answerCounter.value.toString(),
                   ),
                 ],
               ),
@@ -113,17 +117,17 @@ class Training extends HookConsumerWidget {
             // 計算問題
             //------------------------
             Text(
-              _quiestion1.value,
+              quiestion1.value,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             Text(
               // counter.value.toString(),
-              _quiestion2.value,
+              quiestion2.value,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             Text(
               // counter.value.toString(),
-              _quiestion3.value,
+              quiestion3.value,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             //------------------------
@@ -133,20 +137,18 @@ class Training extends HookConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: () {
-                    trainingInfoProvider.changeOnTraining();
-                  },
+                  onPressed: trainingInfoProvider.changeOnTraining,
                   child: const Text('Home'),
                 ),
                 ElevatedButton(
                   onPressed: () {
                     // 計算問題入れ替え
-                    _quiestion1.value = _quiestion2.value;
-                    _quiestion2.value = _quiestion3.value;
-                    _quiestion3.value = Question().getFormula(operation);
+                    quiestion1.value = quiestion2.value;
+                    quiestion2.value = quiestion3.value;
+                    quiestion3.value = Question().getFormula(operation);
 
                     // 回答数カウント
-                    _answerCounter.value++;
+                    answerCounter.value++;
                   },
                   child: const Text('Next'),
                 ),

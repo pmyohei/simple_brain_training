@@ -1,6 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+// Project imports:
 import 'home.dart';
 import 'training.dart';
 
@@ -22,7 +26,7 @@ extension OperationSelectorExt on OperationSelector {
   }
 }
 
-final TrainingInfoProvider = ChangeNotifierProvider((ref) => TrainingInfo());
+final kTrainingInfoProvider = ChangeNotifierProvider((ref) => TrainingInfo());
 
 class TrainingInfo extends ChangeNotifier {
   var _onTraining = false;
@@ -49,25 +53,27 @@ class TrainingInfo extends ChangeNotifier {
 }
 
 class SimpleBrainTrainingApp extends ConsumerWidget {
+  const SimpleBrainTrainingApp({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //------------------------
     // 状態管理
     //------------------------
     // 状態監視：トレーニング情報
-    var trainingInfoProvider = ref.watch(TrainingInfoProvider);
+    final trainingInfoProvider = ref.watch(kTrainingInfoProvider);
 
     //------------------------
     // 表示
     //------------------------
     // 表示ページを取得
-    Widget page = getPage(trainingInfoProvider.onTraining);
+    final page = getPage(onTraining: trainingInfoProvider.onTraining);
 
     return MaterialApp(
       title: 'Simple BrainTraining',
       theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 208, 180, 255)),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 208, 180, 255)),
         useMaterial3: true,
       ),
       home: page,
@@ -77,8 +83,7 @@ class SimpleBrainTrainingApp extends ConsumerWidget {
   /*
   * 表示ページの取得
   */
-  Widget getPage(bool onTraining) {
-    // print("getPage() $operation");
-    return (onTraining) ? Training() : Home();
+  Widget getPage({required bool onTraining}) {
+    return onTraining ? Training() : const Home();
   }
 }

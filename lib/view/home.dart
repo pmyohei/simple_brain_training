@@ -1,9 +1,14 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+// Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+// Project imports:
 import './app.dart';
 
 class Home extends ConsumerWidget {
+  const Home({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
@@ -12,12 +17,12 @@ class Home extends ConsumerWidget {
     // 状態管理
     //------------------------
     // 状態監視：トレーニング情報
-    var trainingInfoProvider = ref.watch(TrainingInfoProvider);
+    final trainingInfoProvider = ref.watch(kTrainingInfoProvider);
 
     //------------------------
     // ホーム画面（トレーニング開始前）
     //------------------------
-    return Container(
+    return DecoratedBox(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -33,7 +38,7 @@ class Home extends ConsumerWidget {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text("widget.title"),
+          title: const Text('widget.title'),
         ),
         body: Center(
           child: Column(
@@ -44,40 +49,40 @@ class Home extends ConsumerWidget {
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               ElevatedButton(
-                onPressed: () {
-                  trainingInfoProvider.changeOnTraining();
-                },
-                child: const Text('Start'),
+                onPressed: trainingInfoProvider.changeOnTraining,
                 style: ElevatedButton.styleFrom(
-                  minimumSize: Size(100, 100),
+                  minimumSize: const Size(100, 100),
                   shape: const CircleBorder(),
                 ),
+                child: const Text('Start'),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   ElevatedButton(
                     onPressed: () {
                       trainingInfoProvider.setOperation(OperationSelector.plus);
                     },
-                    child: const Text('+'),
                     style: ElevatedButton.styleFrom(
-                        fixedSize: Size(40, 40),
-                        backgroundColor: trainingInfoProvider.operation ==
-                                OperationSelector.plus
-                            ? theme.colorScheme.primary
-                            : theme.colorScheme.onPrimary,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(2))),
+                      fixedSize: const Size(40, 48),
+                      backgroundColor: trainingInfoProvider.operation ==
+                              OperationSelector.plus
+                          ? theme.colorScheme.primary
+                          : theme.colorScheme.onPrimary,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                    ),
+                    child: const Text('+'),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       trainingInfoProvider
                           .setOperation(OperationSelector.minus);
                     },
-                    child: const Text('-'),
                     style: ElevatedButton.styleFrom(
-                        fixedSize: Size(40, 40),
+                        fixedSize: const Size(40, 40),
                         backgroundColor: trainingInfoProvider.operation ==
                                 OperationSelector.minus
                             ? theme.colorScheme.primary
@@ -85,15 +90,15 @@ class Home extends ConsumerWidget {
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(2))),
+                    child: const Text('-'),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       trainingInfoProvider
                           .setOperation(OperationSelector.multiplication);
                     },
-                    child: const Text('×'),
                     style: ElevatedButton.styleFrom(
-                        fixedSize: Size(40, 40),
+                        fixedSize: const Size(40, 40),
                         backgroundColor: trainingInfoProvider.operation ==
                                 OperationSelector.multiplication
                             ? theme.colorScheme.primary
@@ -101,15 +106,15 @@ class Home extends ConsumerWidget {
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(2))),
+                    child: const Text('×'),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       trainingInfoProvider
                           .setOperation(OperationSelector.division);
                     },
-                    child: const Text('÷'),
                     style: ElevatedButton.styleFrom(
-                        fixedSize: Size(40, 40),
+                        fixedSize: const Size(40, 40),
                         backgroundColor: trainingInfoProvider.operation ==
                                 OperationSelector.division
                             ? theme.colorScheme.primary
@@ -117,48 +122,8 @@ class Home extends ConsumerWidget {
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(2))),
+                    child: const Text('÷'),
                   ),
-                  // ListTile(
-                  //   leading: Radio<OperationSelector>(
-                  //     value: OperationSelector.plus,
-                  //     groupValue: trainingInfoProvider.operation,
-                  //     onChanged: (OperationSelector? value) {
-                  //       trainingInfoProvider.setOperation(value);
-                  //       print("演算子設定確認 $value");
-                  //     },
-                  //   ),
-                  //   title: const Text('+'),
-                  // ),
-                  // ListTile(
-                  //   leading: Radio<OperationSelector>(
-                  //     value: OperationSelector.minus,
-                  //     groupValue: trainingInfoProvider.operation,
-                  //     onChanged: (OperationSelector? value) {
-                  //       trainingInfoProvider.setOperation(value);
-                  //     },
-                  //   ),
-                  //   title: const Text('-'),
-                  // ),
-                  // ListTile(
-                  //   leading: Radio<OperationSelector>(
-                  //     value: OperationSelector.multiplication,
-                  //     groupValue: trainingInfoProvider.operation,
-                  //     onChanged: (OperationSelector? value) {
-                  //       trainingInfoProvider.setOperation(value);
-                  //     },
-                  //   ),
-                  //   title: const Text('×'),
-                  // ),
-                  // ListTile(
-                  //   leading: Radio<OperationSelector>(
-                  //     value: OperationSelector.division,
-                  //     groupValue: trainingInfoProvider.operation,
-                  //     onChanged: (OperationSelector? value) {
-                  //       trainingInfoProvider.setOperation(value);
-                  //     },
-                  //   ),
-                  //   title: const Text('÷'),
-                  // ),
                 ],
               ),
             ],

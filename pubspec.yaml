@@ -13,14 +13,31 @@ dependencies:
   hooks_riverpod: ^1.0.3
   stop_watch_timer:
   cupertino_icons: ^1.0.2
+  import_sorter: ^4.6.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.0
+  # flutter_lints: ^2.0.0
+  pedantic_mono: any
+  # flutter_gen
+  build_runner:
+  flutter_gen_runner:
 
+flutter_gen:
+  output: lib/gen/ # Optional (default: lib/gen/)
+  lineLength: 80   # Optional (default: 80)
+
+  integrations:
+    flutter_svg: true
+    
+  colors:
+    inputs:
+      - assets/color/colors.xml
 
 flutter:
 
   uses-material-design: true
+  assets:
+    - assets/images/

@@ -1,0 +1,15 @@
+{
+  "@@locale":"en",
+  "training_message": "To activate the frontal lobe,\nit is important to 『solve simple problems quickly』.\nThis app does not require you to enter or match answers.\nIt's okay if you make a mistake.\nTry to do the calculations in your head as quickly as possible.\nAim for 10 to 15 minutes a day.\nBy doing this before studying,\nyou can warm up your brain and improve your concentration.\nIt's more effective if you say it out loud.",
+  "start": "Start",
+  "next": "Next",
+  "home": "Home",
+
+  "training_time": "Training Time",
+  "answers": "Answers",
+
+  "plus": "+",
+  "minus": "-",
+  "multiplication": "×",
+  "division": "÷"
+}

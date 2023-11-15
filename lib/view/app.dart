@@ -11,21 +11,7 @@ import 'training.dart';
 // 演算子
 enum OperationSelector { plus, minus, multiplication, division }
 
-extension OperationSelectorExt on OperationSelector {
-  String get name {
-    switch (this) {
-      case OperationSelector.plus:
-        return '+';
-      case OperationSelector.minus:
-        return '-';
-      case OperationSelector.multiplication:
-        return '×';
-      case OperationSelector.division:
-        return '÷';
-    }
-  }
-}
-
+// トレーニング状態管理Provider
 final kTrainingInfoProvider = ChangeNotifierProvider((ref) => TrainingInfo());
 
 class TrainingInfo extends ChangeNotifier {
@@ -73,7 +59,8 @@ class SimpleBrainTrainingApp extends ConsumerWidget {
       title: 'Simple BrainTraining',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 208, 180, 255)),
+          seedColor: const Color.fromARGB(255, 208, 180, 255),
+        ),
         useMaterial3: true,
       ),
       home: page,
@@ -84,6 +71,6 @@ class SimpleBrainTrainingApp extends ConsumerWidget {
   * 表示ページの取得
   */
   Widget getPage({required bool onTraining}) {
-    return onTraining ? Training() : const Home();
+    return onTraining ? Training() : Home();
   }
 }

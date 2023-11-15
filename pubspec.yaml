@@ -14,6 +14,11 @@ dependencies:
   stop_watch_timer:
   cupertino_icons: ^1.0.2
   import_sorter: ^4.6.0
+  google_mobile_ads: ^3.1.0
+  flutter_localizations:    # 多言語ライブラリの本体
+    sdk: flutter  
+  intl: "^0.18.1"           # 多言語やフォーマッタなどの関連ライブラリ
+
 
 dev_dependencies:
   flutter_test:
@@ -31,13 +36,22 @@ flutter_gen:
 
   integrations:
     flutter_svg: true
-    
-  colors:
-    inputs:
-      - assets/color/colors.xml
 
 flutter:
 
   uses-material-design: true
+  generate: true
+  
   assets:
     - assets/images/
+
+  fonts:
+    - family: ZenKakuGothicNew
+      fonts:
+      - asset: assets/fonts/ZenKakuGothicNew/ZenKakuGothicNew-Light.ttf
+        weight: 300
+      - asset: assets/fonts/ZenKakuGothicNew/ZenKakuGothicNew-Medium.ttf
+        weight: 400
+      - asset: assets/fonts/ZenKakuGothicNew/ZenKakuGothicNew-Regular.ttf
+        weight: 500
+  

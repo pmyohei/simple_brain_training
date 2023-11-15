@@ -13,47 +13,45 @@ import '../trainingLogic/question.dart';
 /*
  * Training画面Widget
  */
-class Training extends HookConsumerWidget {
-  Training({super.key}) {
+class Training2 extends HookConsumerWidget {
+  Training2({super.key}) {
     _stopWatchTimer.onStartTimer();
   }
 
   // AnimatedList用キー
   final GlobalKey<AnimatedListState> _formulaListKey = GlobalKey();
-  // 計算式リスト
-  final List<String> formulaList = ['1 + 1', '2 + 2', '3 + 3'];
+
   // ストップウォッチタイマー
   final _stopWatchTimer = StopWatchTimer();
 
-  final durationAdd = 200;
-  final durationRemove = 4000;
+  final duration = 1000;
 
   /*
   * 計算式の新規追加
   */
-  void addFormula(OperationSelector? operation) {
+  void addFormula(List<String> formulaList, OperationSelector? operation) {
     final index = formulaList.length;
     formulaList.add(Question().getFormula(operation));
     _formulaListKey.currentState
-        ?.insertItem(index, duration: Duration(milliseconds: durationAdd));
+        ?.insertItem(index, duration: Duration(milliseconds: duration));
   }
 
   /*
   * 計算式の削除
   */
-  void deleteFormula() {
+  void deleteFormula(List<String> formulaList) {
     const topIndex = 0;
 
-    // final _styleTween = TextStyleTween(
-    //   begin: const TextStyle(
-    //     fontSize: 32,
-    //     color: Colors.blue,
-    //   ),
-    //   end: const TextStyle(
-    //     fontSize: 40,
-    //     color: Colors.red,
-    //   ),
-    // );
+    final _styleTween = TextStyleTween(
+      begin: const TextStyle(
+        fontSize: 32,
+        color: Colors.blue,
+      ),
+      end: const TextStyle(
+        fontSize: 40,
+        color: Colors.red,
+      ),
+    );
 
     final topFormula = formulaList.removeAt(topIndex);
     _formulaListKey.currentState?.removeItem(
@@ -101,8 +99,7 @@ class Training extends HookConsumerWidget {
         //   ),
         // );
       },
-      // duration: Duration(milliseconds: durationRemove),
-      duration: Duration(seconds: 10),
+      duration: Duration(milliseconds: 1000),
     );
   }
 
@@ -117,19 +114,19 @@ class Training extends HookConsumerWidget {
     MaterialColor sColor = Colors.blue;
     MaterialColor eColor = Colors.red;
 
-    double startFontSize = 20;
+    double startFontSize = 12;
     double endFontSize = 24;
     double fontSize = 24;
     if (index == 0) {
       fontSize = 40;
       startFontSize = 32;
-      endFontSize = 52;
+      endFontSize = 40;
 
       sColor = Colors.yellow;
       eColor = Colors.green;
     } else if (index == 1) {
       fontSize = 32;
-      startFontSize = 12;
+      startFontSize = 24;
       endFontSize = 32;
 
       sColor = Colors.blueGrey;
@@ -190,6 +187,8 @@ class Training extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // 計算式リスト
+    final formulaList = useState<List<String>>(['a', 'b', 'c']);
     //------------------------
     // UIサイズ
     //------------------------
@@ -322,13 +321,16 @@ class Training extends HookConsumerWidget {
                 width: 100,
                 child: AnimatedList(
                   key: _formulaListKey,
-                  initialItemCount: formulaList.length,
+                  initialItemCount: formulaList.value.length,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index, animation) {
                     return Center(
                       child: _buildFormulaItem(
-                          formulaList[index], animation, index),
+                        formulaList.value[index],
+                        animation,
+                        index,
+                      ),
                     );
                     // return Center(
                     //   child: FadeTransition(
@@ -394,8 +396,8 @@ class Training extends HookConsumerWidget {
                       // 回答数カウント
                       answerCounter.value++;
 
-                      deleteFormula();
-                      addFormula(operation);
+                      deleteFormula(formulaList.value);
+                      addFormula(formulaList.value, operation);
 
                       // RenderBox renderbox = kCalculate1Key.currentContext!
                       //     .findRenderObject() as RenderBox;

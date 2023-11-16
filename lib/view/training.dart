@@ -43,7 +43,7 @@ class Training extends HookConsumerWidget {
     // トレーニングUI
     final trainingUISize = deviceWidth * 0.2;
     // 計算式トップマージン
-    final formulaTopMargin = deviceHeight * 0.12;
+    final formulaTopMargin = calcFormulaTopMargin(deviceHeight: deviceHeight);
 
     //------------------------
     // 状態管理
@@ -257,12 +257,15 @@ class Training extends HookConsumerWidget {
                         shape: const CircleBorder(),
                         backgroundColor: AppColors.bgControlButton,
                         textStyle: const TextStyle(
-                          color: AppColors.txButton,
                           fontSize: 20,
                         ),
                       ),
                       child: Text(
                         AppLocalizations.of(context)!.home,
+                        style: const TextStyle(
+                          letterSpacing: 2,
+                          color: AppColors.txButton,
+                        ),
                       ),
                     ),
                     // NextUI
@@ -317,6 +320,10 @@ class Training extends HookConsumerWidget {
                       ),
                       child: Text(
                         AppLocalizations.of(context)!.next,
+                        style: const TextStyle(
+                          letterSpacing: 2,
+                          color: AppColors.txButton,
+                        ),
                       ),
                     ),
                   ],
@@ -435,5 +442,23 @@ class Training extends HookConsumerWidget {
     formulaList[0] = Question().getFormula(operation);
     formulaList[1] = Question().getFormula(operation);
     formulaList[2] = Question().getFormula(operation);
+  }
+
+  /*
+  * 計算式リスト初期化
+  */
+  double calcFormulaTopMargin({required double deviceHeight}) {
+    //------------------------------
+    // デバイスサイズに応じた割合を返す
+    //------------------------------
+    if (deviceHeight <= 700) {
+      return deviceHeight * 0.12;
+    }
+
+    if (deviceHeight <= 800) {
+      return deviceHeight * 0.15;
+    }
+
+    return deviceHeight * 0.2;
   }
 }

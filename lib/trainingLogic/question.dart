@@ -36,8 +36,8 @@ class Question {
    * 計算式（足し算）の取得
    */
   String getPlusFormula() {
-    String operand1 = getRandomOperandStr();
-    String operand2 = getRandomOperandStr();
+    final operand1 = getRandomOperandStr();
+    final operand2 = getRandomOperandStr();
 
     return '$operand1 + $operand2';
   }
@@ -49,13 +49,13 @@ class Question {
     //------------------------------------------
     // 演算値１：必ず演算値２より大きい値にする
     //------------------------------------------
-    int tmpOperandNum1 = getRandomOperand();
-    int tmpOperandNum2 = getRandomOperand();
-    int operandNum1 = tmpOperandNum1 + tmpOperandNum2;
+    final tmpOperandNum1 = getRandomOperand();
+    final tmpOperandNum2 = getRandomOperand();
+    final operandNum1 = tmpOperandNum1 + tmpOperandNum2;
 
     // 文字列変換
-    String operand1 = operandNum1.toString();
-    String operand2 = tmpOperandNum2.toString();
+    final operand1 = operandNum1.toString();
+    final operand2 = tmpOperandNum2.toString();
 
     return '$operand1 - $operand2';
   }
@@ -64,8 +64,8 @@ class Question {
    * 計算式（掛け算）の取得
    */
   String getMultiFormula() {
-    String operand1 = getRandomOperandStr();
-    String operand2 = getRandomOperandStr();
+    final operand1 = getRandomOperandStr();
+    final operand2 = getRandomOperandStr();
 
     return '$operand1 × $operand2';
   }
@@ -77,18 +77,18 @@ class Question {
     //------------------------------------------
     // 演算値１：必ず演算値２で割り切れる値にする
     //------------------------------------------
-    int tmpOperandNum1 = getRandomOperand();
+    final tmpOperandNum1 = getRandomOperand();
     // 割る数は0以外
     int tmpOperandNum2;
     do {
       tmpOperandNum2 = getRandomOperand();
     } while (tmpOperandNum2 == 0);
 
-    int operandNum1 = tmpOperandNum1 * tmpOperandNum2;
+    final operandNum1 = tmpOperandNum1 * tmpOperandNum2;
 
     // 文字列変換
-    String operand1 = operandNum1.toString();
-    String operand2 = tmpOperandNum2.toString();
+    final operand1 = operandNum1.toString();
+    final operand2 = tmpOperandNum2.toString();
 
     return '$operand1 ÷ $operand2';
   }

@@ -69,7 +69,6 @@ class Home extends HookConsumerWidget {
     // 端末サイズ
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
-    print("deviceHeight=$deviceHeight");
     // ページ
     final homeTopMargin = deviceHeight * 0.1;
     final homeBottomMargin = deviceHeight * 0.05;

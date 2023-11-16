@@ -69,8 +69,11 @@ class Home extends HookConsumerWidget {
     // 端末サイズ
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
+    // ページ
+    final homeTopMargin = deviceHeight * 0.1;
+    final homeBottomMargin = deviceHeight * 0.05;
     // トレーニング説明エリア
-    final trainingExplanation = deviceHeight * 0.2;
+    final trainingExplanationHeight = deviceHeight * 0.2;
     final trainingExplanationEdgePadding = deviceWidth * 0.1;
     // Startボタン
     final startUIResponsiveSize = deviceWidth * 0.3;
@@ -104,188 +107,200 @@ class Home extends HookConsumerWidget {
         backgroundColor: Colors.transparent,
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    SizedBox(
-                      height: trainingExplanation,
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(
-                            trainingExplanationEdgePadding,
-                            0,
-                            trainingExplanationEdgePadding,
-                            0,
-                          ),
-                          child: Text(
-                            AppLocalizations.of(context)!.training_message,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: AppColors.txAdvice,
-                              height: 1.8,
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(
+                    0,
+                    homeTopMargin,
+                    0,
+                    homeBottomMargin,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      SizedBox(
+                        height: trainingExplanationHeight,
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(
+                              trainingExplanationEdgePadding,
+                              0,
+                              trainingExplanationEdgePadding,
+                              0,
                             ),
-                            textAlign: TextAlign.center,
+                            child: Text(
+                              AppLocalizations.of(context)!.training_message,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: AppColors.txAdvice,
+                                height: 1.8,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          CupertinoPageRoute(
-                            builder: (context) {
-                              return Training();
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            CupertinoPageRoute(
+                              builder: (context) {
+                                return Training();
+                              },
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(startUISize, startUISize),
+                          shape: const CircleBorder(),
+                          backgroundColor: AppColors.bgControlButton,
+                          textStyle: const TextStyle(
+                            fontSize: 24,
+                          ),
+                        ),
+                        child: Text(
+                          AppLocalizations.of(context)!.start,
+                          style: const TextStyle(
+                            letterSpacing: 2,
+                            color: AppColors.txButton,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          ElevatedButton(
+                            onPressed: () {
+                              trainingInfoProvider
+                                  .setOperation(OperationSelector.plus);
                             },
-                          ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(startUISize, startUISize),
-                        shape: const CircleBorder(),
-                        backgroundColor: AppColors.bgControlButton,
-                        textStyle: const TextStyle(
-                          fontSize: 24,
-                        ),
-                      ),
-                      child: Text(
-                        AppLocalizations.of(context)!.start,
-                        style: const TextStyle(
-                          letterSpacing: 2,
-                          color: AppColors.txButton,
-                        ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        ElevatedButton(
-                          onPressed: () {
-                            trainingInfoProvider
-                                .setOperation(OperationSelector.plus);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: Size(operationUISize, operationUISize),
-                            foregroundColor: trainingInfoProvider.operation ==
-                                    OperationSelector.plus
-                                ? AppColors.txOperationButtonOn
-                                : AppColors.txOperationButtonOff,
-                            backgroundColor: trainingInfoProvider.operation ==
-                                    OperationSelector.plus
-                                ? AppColors.bgOperationButtonOn
-                                : AppColors.bgOperationButtonOff,
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(operationUIRadius),
-                            ),
-                            textStyle: TextStyle(
-                              fontSize: 32,
-                              color: trainingInfoProvider.operation ==
+                            style: ElevatedButton.styleFrom(
+                              minimumSize:
+                                  Size(operationUISize, operationUISize),
+                              foregroundColor: trainingInfoProvider.operation ==
                                       OperationSelector.plus
                                   ? AppColors.txOperationButtonOn
                                   : AppColors.txOperationButtonOff,
+                              backgroundColor: trainingInfoProvider.operation ==
+                                      OperationSelector.plus
+                                  ? AppColors.bgOperationButtonOn
+                                  : AppColors.bgOperationButtonOff,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(operationUIRadius),
+                              ),
+                              textStyle: TextStyle(
+                                fontSize: 32,
+                                color: trainingInfoProvider.operation ==
+                                        OperationSelector.plus
+                                    ? AppColors.txOperationButtonOn
+                                    : AppColors.txOperationButtonOff,
+                              ),
+                              alignment: Alignment.center,
                             ),
-                            alignment: Alignment.center,
-                          ),
-                          child: Text(
-                            AppLocalizations.of(context)!.plus,
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            trainingInfoProvider
-                                .setOperation(OperationSelector.minus);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: Size(operationUISize, operationUISize),
-                            foregroundColor: trainingInfoProvider.operation ==
-                                    OperationSelector.minus
-                                ? AppColors.txOperationButtonOn
-                                : AppColors.txOperationButtonOff,
-                            backgroundColor: trainingInfoProvider.operation ==
-                                    OperationSelector.minus
-                                ? AppColors.bgOperationButtonOn
-                                : AppColors.bgOperationButtonOff,
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(operationUIRadius),
+                            child: Text(
+                              AppLocalizations.of(context)!.plus,
                             ),
-                            textStyle: TextStyle(
-                              fontSize: 32,
-                              color: trainingInfoProvider.operation ==
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              trainingInfoProvider
+                                  .setOperation(OperationSelector.minus);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              minimumSize:
+                                  Size(operationUISize, operationUISize),
+                              foregroundColor: trainingInfoProvider.operation ==
                                       OperationSelector.minus
                                   ? AppColors.txOperationButtonOn
                                   : AppColors.txOperationButtonOff,
+                              backgroundColor: trainingInfoProvider.operation ==
+                                      OperationSelector.minus
+                                  ? AppColors.bgOperationButtonOn
+                                  : AppColors.bgOperationButtonOff,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(operationUIRadius),
+                              ),
+                              textStyle: TextStyle(
+                                fontSize: 32,
+                                color: trainingInfoProvider.operation ==
+                                        OperationSelector.minus
+                                    ? AppColors.txOperationButtonOn
+                                    : AppColors.txOperationButtonOff,
+                              ),
+                              alignment: Alignment.center,
                             ),
-                            alignment: Alignment.center,
-                          ),
-                          child: Text(
-                            AppLocalizations.of(context)!.minus,
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            trainingInfoProvider
-                                .setOperation(OperationSelector.multiplication);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: Size(operationUISize, operationUISize),
-                            foregroundColor: trainingInfoProvider.operation ==
-                                    OperationSelector.multiplication
-                                ? AppColors.txOperationButtonOn
-                                : AppColors.txOperationButtonOff,
-                            backgroundColor: trainingInfoProvider.operation ==
-                                    OperationSelector.multiplication
-                                ? AppColors.bgOperationButtonOn
-                                : AppColors.bgOperationButtonOff,
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(operationUIRadius),
-                            ),
-                            textStyle: const TextStyle(
-                              fontSize: 32,
+                            child: Text(
+                              AppLocalizations.of(context)!.minus,
                             ),
                           ),
-                          child: Text(
-                            AppLocalizations.of(context)!.multiplication,
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            trainingInfoProvider
-                                .setOperation(OperationSelector.division);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: Size(operationUISize, operationUISize),
-                            foregroundColor: trainingInfoProvider.operation ==
-                                    OperationSelector.division
-                                ? AppColors.txOperationButtonOn
-                                : AppColors.txOperationButtonOff,
-                            backgroundColor: trainingInfoProvider.operation ==
-                                    OperationSelector.division
-                                ? AppColors.bgOperationButtonOn
-                                : AppColors.bgOperationButtonOff,
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(operationUIRadius),
+                          ElevatedButton(
+                            onPressed: () {
+                              trainingInfoProvider.setOperation(
+                                  OperationSelector.multiplication);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              minimumSize:
+                                  Size(operationUISize, operationUISize),
+                              foregroundColor: trainingInfoProvider.operation ==
+                                      OperationSelector.multiplication
+                                  ? AppColors.txOperationButtonOn
+                                  : AppColors.txOperationButtonOff,
+                              backgroundColor: trainingInfoProvider.operation ==
+                                      OperationSelector.multiplication
+                                  ? AppColors.bgOperationButtonOn
+                                  : AppColors.bgOperationButtonOff,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(operationUIRadius),
+                              ),
+                              textStyle: const TextStyle(
+                                fontSize: 32,
+                              ),
                             ),
-                            textStyle: TextStyle(
-                              fontSize: 32,
-                              color: trainingInfoProvider.operation ==
+                            child: Text(
+                              AppLocalizations.of(context)!.multiplication,
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              trainingInfoProvider
+                                  .setOperation(OperationSelector.division);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              minimumSize:
+                                  Size(operationUISize, operationUISize),
+                              foregroundColor: trainingInfoProvider.operation ==
                                       OperationSelector.division
                                   ? AppColors.txOperationButtonOn
                                   : AppColors.txOperationButtonOff,
+                              backgroundColor: trainingInfoProvider.operation ==
+                                      OperationSelector.division
+                                  ? AppColors.bgOperationButtonOn
+                                  : AppColors.bgOperationButtonOff,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(operationUIRadius),
+                              ),
+                              textStyle: TextStyle(
+                                fontSize: 32,
+                                color: trainingInfoProvider.operation ==
+                                        OperationSelector.division
+                                    ? AppColors.txOperationButtonOn
+                                    : AppColors.txOperationButtonOff,
+                              ),
+                            ),
+                            child: Text(
+                              AppLocalizations.of(context)!.division,
                             ),
                           ),
-                          child: Text(
-                            AppLocalizations.of(context)!.division,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Container(

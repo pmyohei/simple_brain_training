@@ -27,10 +27,10 @@ class AppColors {
   static const txFormula = Color.fromARGB(255, 83, 83, 83);
   // 制御系ボタンUI
   // static const txButton = Color.fromARGB(255, 83, 83, 83);
-  static const txButton = Color.fromARGB(255, 153, 95, 255);
+  static const txButton = Color.fromARGB(255, 200, 168, 255);
   // 演算子選択肢 on/off
   // static const txOperationButtonOn = Color.fromARGB(255, 156, 156, 156);
-  static const txOperationButtonOn = Color.fromARGB(255, 153, 95, 255);
+  static const txOperationButtonOn = Color.fromARGB(255, 200, 168, 255);
   static const txOperationButtonOff = Color.fromARGB(255, 255, 255, 255);
   // トレーニング画面上部
   // static const txTrainingInfo = Color.fromARGB(255, 83, 83, 83);

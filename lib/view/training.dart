@@ -38,6 +38,7 @@ class Training extends HookConsumerWidget {
     final deviceWidth = MediaQuery.of(context).size.width;
     // トレーニング情報
     final trainingAreaTopMargin = deviceWidth * 0.2;
+    final trainingAreaBottomMargin = deviceWidth * 0.1;
     final trainingAreaEdgePadding = deviceWidth * 0.1;
     // トレーニングUI
     final trainingUISize = deviceWidth * 0.2;
@@ -116,7 +117,7 @@ class Training extends HookConsumerWidget {
               0,
               trainingAreaTopMargin,
               0,
-              trainingAreaTopMargin,
+              trainingAreaBottomMargin,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -142,29 +142,37 @@ class Home extends HookConsumerWidget {
                           ),
                         ),
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            CupertinoPageRoute(
-                              builder: (context) {
-                                return Training();
-                              },
-                            ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(startUISize, startUISize),
-                          shape: const CircleBorder(),
-                          backgroundColor: AppColors.bgControlButton,
-                          textStyle: const TextStyle(
-                            fontSize: 24,
-                          ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(
+                          0,
+                          0,
+                          0,
+                          homeTopMargin,
                         ),
-                        child: Text(
-                          AppLocalizations.of(context)!.start,
-                          style: const TextStyle(
-                            letterSpacing: 2,
-                            color: AppColors.txButton,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              CupertinoPageRoute(
+                                builder: (context) {
+                                  return Training();
+                                },
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(startUISize, startUISize),
+                            shape: const CircleBorder(),
+                            backgroundColor: AppColors.bgControlButton,
+                            textStyle: const TextStyle(
+                              fontSize: 24,
+                            ),
+                          ),
+                          child: Text(
+                            AppLocalizations.of(context)!.start,
+                            style: const TextStyle(
+                              letterSpacing: 2,
+                              color: AppColors.txButton,
+                            ),
                           ),
                         ),
                       ),

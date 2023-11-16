@@ -249,6 +249,7 @@ class Training extends HookConsumerWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
+                    // HomeUI
                     ElevatedButton(
                       onPressed: Navigator.of(context).pop,
                       style: ElevatedButton.styleFrom(
@@ -256,6 +257,7 @@ class Training extends HookConsumerWidget {
                         shape: const CircleBorder(),
                         backgroundColor: AppColors.bgControlButton,
                         textStyle: const TextStyle(
+                          color: AppColors.txButton,
                           fontSize: 20,
                         ),
                       ),
@@ -263,6 +265,7 @@ class Training extends HookConsumerWidget {
                         AppLocalizations.of(context)!.home,
                       ),
                     ),
+                    // NextUI
                     ElevatedButton(
                       onPressed: () {
                         //--------------------
@@ -309,6 +312,7 @@ class Training extends HookConsumerWidget {
                         backgroundColor: AppColors.bgControlButton,
                         textStyle: const TextStyle(
                           fontSize: 20,
+                          color: AppColors.txButton,
                         ),
                       ),
                       child: Text(

@@ -1,203 +1,43 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
 // Package imports:
-// ignore: depend_on_referenced_packages
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
+import 'package:simple_brain_training/configs/color.dart';
 
-import './home.dart';
 // Project imports:
+import './home.dart';
 import '../trainingLogic/question.dart';
 
 /*
- * Training画面Widget
+ * トレーニング画面
  */
 class Training extends HookConsumerWidget {
   Training({super.key}) {
     _stopWatchTimer.onStartTimer();
   }
 
-  // AnimatedList用キー
-  final GlobalKey<AnimatedListState> _formulaListKey = GlobalKey();
-  // 計算式リスト
-  final List<String> formulaList = ['1 + 1', '2 + 2', '3 + 3'];
   // ストップウォッチタイマー
   final _stopWatchTimer = StopWatchTimer();
-
-  final durationAdd = 200;
-  final durationRemove = 4000;
-
-  /*
-  * 計算式の新規追加
-  */
-  void addFormula(OperationSelector? operation) {
-    final index = formulaList.length;
-    formulaList.add(Question().getFormula(operation));
-    _formulaListKey.currentState
-        ?.insertItem(index, duration: Duration(milliseconds: durationAdd));
-  }
-
-  /*
-  * 計算式の削除
-  */
-  void deleteFormula() {
-    const topIndex = 0;
-
-    // final _styleTween = TextStyleTween(
-    //   begin: const TextStyle(
-    //     fontSize: 32,
-    //     color: Colors.blue,
-    //   ),
-    //   end: const TextStyle(
-    //     fontSize: 40,
-    //     color: Colors.red,
-    //   ),
-    // );
-
-    final topFormula = formulaList.removeAt(topIndex);
-    _formulaListKey.currentState?.removeItem(
-      topIndex,
-      (BuildContext context, Animation<double> animation) {
-        return FadeTransition(
-          opacity: CurvedAnimation(
-            parent: animation,
-            curve: const Interval(0, 1), // degin:0.5 にすると、durationの半分の時間から始まる
-          ),
-          child: SizeTransition(
-            sizeFactor: CurvedAnimation(
-              parent: animation,
-              curve: const Interval(0, 1),
-            ),
-          ),
-        );
-        // return DefaultTextStyleTransition(
-        //   style: _styleTween.animate(animation),
-        //   child: _buildFormulaItem(topFormula),
-        // );
-        // return FadeTransition(
-        //   opacity: CurvedAnimation(
-        //     parent: animation,
-        //     curve: const Interval(0, 1), // degin:0.5 にすると、durationの半分の時間から始まる
-        //   ),
-        //   child: SizeTransition(
-        //     sizeFactor: CurvedAnimation(
-        //       parent: animation,
-        //       curve: const Interval(0, 1),
-        //     ),
-        //     child: DefaultTextStyleTransition(
-        //       style: _styleTween.animate(animation),
-        //       child: _buildFormulaItem(topFormula),
-        //     ),
-        //   ),
-        // return FadeTransition(
-        //   opacity: CurvedAnimation(
-        //     parent: animation,
-        //     curve: const Interval(0, 1), // degin:0.5 にすると、durationの半分の時間から始まる
-        //   ),
-        //   child: DefaultTextStyleTransition(
-        //     style: _styleTween.animate(animation),
-        //     child: _buildFormulaItem(topFormula),
-        //   ),
-        // );
-      },
-      // duration: Duration(milliseconds: durationRemove),
-      duration: Duration(seconds: 10),
-    );
-  }
-
-  /*
-  * 計算式Widget
-  */
-  Widget _buildFormulaItem(String calculate, Animation<double> animation,
-      [int? index]) {
-    //-----------------------
-    // 計算式フォントサイズ
-    //-----------------------
-    MaterialColor sColor = Colors.blue;
-    MaterialColor eColor = Colors.red;
-
-    double startFontSize = 20;
-    double endFontSize = 24;
-    double fontSize = 24;
-    if (index == 0) {
-      fontSize = 40;
-      startFontSize = 32;
-      endFontSize = 52;
-
-      sColor = Colors.yellow;
-      eColor = Colors.green;
-    } else if (index == 1) {
-      fontSize = 32;
-      startFontSize = 12;
-      endFontSize = 32;
-
-      sColor = Colors.blueGrey;
-      eColor = Colors.orange;
-    }
-
-    print('コール数=$index');
-    print('animation.value=$animation.value');
-
-    final styleTween = TextStyleTween(
-      begin: TextStyle(
-        fontSize: startFontSize,
-        color: sColor,
-      ),
-      end: TextStyle(
-        fontSize: endFontSize,
-        color: eColor,
-      ),
-    );
-
-    // return SizedBox(
-    //   height: height,
-    //   width: width,
-    //   child: Text(
-    //     calculate,
-    //     style: TextStyle(fontSize: fontSize),
-    //   ),
-    // );
-    // return Text(
-    //   calculate,
-    //   style: TextStyle(fontSize: fontSize),
-    // );
-    // return DefaultTextStyleTransition(
-    //   style: _styleTween.animate(animation),
-    //   child: Text(
-    //     calculate,
-    //     style: TextStyle(fontSize: fontSize),
-    //   ),
-    // );
-    // return AnimatedDefaultTextStyle(
-    //   child: Text(calculate),
-    //   style: TextStyle(
-    //     color: Colors.blue,
-    //     fontSize: fontSize,
-    //   ),
-    //   duration: Duration(milliseconds: 200),
-    // );
-    // return AnimatedDefaultTextStyle(
-    //   style: _styleTween.animate(animation),
-    //   child: Text(calculate),
-    //   duration: Duration(milliseconds: 200),
-    // );
-    return DefaultTextStyleTransition(
-      style: styleTween.animate(animation),
-      child: Text(calculate),
-    );
-  }
+  // 計算式リスト
+  final List<String> formulaList = [
+    '',
+    '',
+    '',
+  ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //------------------------
     // UIサイズ
     //------------------------
+    final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
-    // Startボタン
-    final trainingUIResponsiveSize = deviceWidth * 0.2;
-    final trainingUISize =
-        (trainingUIResponsiveSize > 120.0) ? 120.0 : trainingUIResponsiveSize;
+    final trainingUISize = deviceWidth * 0.2;
+    final formulaTopMargin = deviceHeight * 0.12;
 
     //------------------------
     // 状態管理
@@ -207,28 +47,46 @@ class Training extends HookConsumerWidget {
     final operation = trainingInfoProvider.operation;
     // 回答数
     final answerCounter = useState(0);
-    // 計算式
-    final quiestion1 = useState(Question().getFormula(operation));
-    final quiestion2 = useState(Question().getFormula(operation));
-    final quiestion3 = useState(Question().getFormula(operation));
+    // 計算式位置
+    final number1 = useState(3);
+    final number2 = useState(2);
+    final number3 = useState(1);
+    final number4 = useState(0);
+
+    // Next押下制御
+    final nextTapControl = useState(true);
 
     //------------------------
-    // 画面ライフサイクル
+    // 初期化
+    //------------------------
+    useEffect(
+      () {
+        // build初期処理
+        initFormulaList(operation);
+
+        // widget 終了時
+        return null;
+      },
+      [],
+    );
+
+    //------------------------
+    // トレーニング画面
     //------------------------
     useOnAppLifecycleStateChange((beforeState, currState) async {
       switch (currState) {
         case AppLifecycleState.resumed:
-          print('LOG: バックグラウンドから復帰しました');
+          // print('LOG: バックグラウンドから復帰しました');
           _stopWatchTimer.onStartTimer();
 
         case AppLifecycleState.inactive:
         case AppLifecycleState.paused:
         case AppLifecycleState.hidden:
-          print('LOG: バックグラウンドになりました');
+          // print('LOG: バックグラウンドになりました');
           _stopWatchTimer.onStopTimer();
 
         case AppLifecycleState.detached:
-          print('LOG: 終了しました');
+          // print('LOG: 終了しました');
           await _stopWatchTimer.dispose();
       }
     });
@@ -242,185 +100,320 @@ class Training extends HookConsumerWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           stops: [0.1, 0.9],
-          colors: [
-            Color(0xffa8edea),
-            Color(0xfffed6e3),
-          ],
+          colors: AppColors.mainBgGradation,
         ),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              //------------------------
-              // 画面上部
-              //------------------------
-              Container(
-                margin: const EdgeInsets.fromLTRB(24, 0, 24, 40),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: const Color.fromARGB(255, 35, 35, 35),
+        body: Center(
+          child: Container(
+            margin: const EdgeInsets.fromLTRB(0, 40, 0, 28),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                //------------------------
+                // 画面上部
+                //------------------------
+                Container(
+                  margin: const EdgeInsets.fromLTRB(24, 0, 24, 0),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColors.borderTrainingInfo,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // タイム見出し
+                          Text(
+                            AppLocalizations.of(context)!.training_time,
+                            style: const TextStyle(
+                              letterSpacing: 1.4,
+                              color: AppColors.txTrainingInfo,
+                            ),
+                          ),
+                          // タイマー
+                          StreamBuilder<int>(
+                            stream: _stopWatchTimer.rawTime,
+                            initialData: _stopWatchTimer.rawTime.value,
+                            builder: (context, snapshot) {
+                              // ストップウオッチ時間を取得「hh:mm:ss.ms」
+                              final timerTime = StopWatchTimer.getDisplayTime(
+                                snapshot.data!,
+                              );
+                              // ms部分をカット：「hh:mm:ss.ms」⇒「hh:mm:ss」
+                              final displayTime = timerTime.substring(0, 8);
+
+                              return Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 4, 0, 2),
+                                child: Text(
+                                  displayTime,
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    letterSpacing: 1.4,
+                                    color: AppColors.txTrainingInfo,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                          // 境界線
+                          const Padding(
+                            padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
+                            child: Divider(
+                              color: AppColors.borderTrainingInfo,
+                            ),
+                          ),
+                          // 回答数見出し
+                          Text(
+                            AppLocalizations.of(context)!.answers,
+                            style: const TextStyle(
+                              letterSpacing: 1.4,
+                              color: AppColors.txTrainingInfo,
+                            ),
+                          ),
+                          // 回答数
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
+                            child: Text(
+                              answerCounter.value.toString(),
+                              style: const TextStyle(
+                                fontSize: 24,
+                                letterSpacing: 1.4,
+                                color: AppColors.txTrainingInfo,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const Text(
-                          'Training Time',
-                        ),
-                        StreamBuilder<int>(
-                          stream: _stopWatchTimer.rawTime,
-                          initialData: _stopWatchTimer.rawTime.value,
-                          builder: (context, snapshot) {
-                            // ストップウオッチ時間を取得「hh:mm:ss.ms」
-                            final timerTime = StopWatchTimer.getDisplayTime(
-                              snapshot.data!,
-                            );
-                            // ms部分をカット：「hh:mm:ss.ms」⇒「hh:mm:ss」
-                            final displayTime = timerTime.substring(0, 8);
+                ),
 
-                            return Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 4, 0, 2),
-                              child: Text(
-                                displayTime,
-                                style: const TextStyle(fontSize: 24),
-                              ),
-                            );
-                          },
+                //------------------------
+                // 計算問題
+                //------------------------
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(0, formulaTopMargin, 0, 0),
+                    child: Stack(
+                      alignment: AlignmentDirectional.topCenter,
+                      children: <Widget>[
+                        _constrolBuildFormula(
+                          formulaList,
+                          number1.value,
+                          nextTapControl,
                         ),
-                        const Padding(
-                          padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
-                          child: Divider(
-                            color: Color.fromARGB(255, 196, 19, 19),
-                          ),
+                        _constrolBuildFormula(
+                          formulaList,
+                          number2.value,
+                          nextTapControl,
                         ),
-                        const Text(
-                          'Answers',
+                        _constrolBuildFormula(
+                          formulaList,
+                          number3.value,
+                          nextTapControl,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
-                          child: Text(
-                            answerCounter.value.toString(),
-                            style: const TextStyle(fontSize: 24),
-                          ),
+                        _constrolBuildFormula(
+                          formulaList,
+                          number4.value,
+                          nextTapControl,
                         ),
                       ],
                     ),
                   ),
                 ),
-              ),
 
-              //------------------------
-              // 計算問題
-              //------------------------
-              Container(
-                width: 100,
-                child: AnimatedList(
-                  key: _formulaListKey,
-                  initialItemCount: formulaList.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index, animation) {
-                    return Center(
-                      child: _buildFormulaItem(
-                          formulaList[index], animation, index),
-                    );
-                    // return Center(
-                    //   child: FadeTransition(
-                    //     opacity: animation,
-                    //     child: _buildFormulaItem(
-                    //         formulaList[index], animation, index),
-                    //   ),
-                    // );
-                  },
+                //------------------------
+                // 操作ボタン
+                //------------------------
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                      onPressed: Navigator.of(context).pop,
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(trainingUISize, trainingUISize),
+                        shape: const CircleBorder(),
+                        backgroundColor: AppColors.bgControlButton,
+                        textStyle: const TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                      child: Text(
+                        AppLocalizations.of(context)!.home,
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        //--------------------
+                        // 計算式入れ替え中判定
+                        //--------------------
+                        if (!nextTapControl.value) {
+                          // 入れ替え中なら処理なし
+                          return;
+                        }
+
+                        //--------------------
+                        // 計算式入れ替え
+                        //--------------------
+                        formulaList
+                          ..removeAt(0)
+                          ..add(Question().getFormula(operation));
+
+                        //--------------------
+                        // 回答数カウント
+                        //--------------------
+                        answerCounter.value++;
+
+                        //--------------------
+                        // 計算式位置の更新
+                        //--------------------
+                        number1.value =
+                            (number1.value + 1) <= 3 ? (number1.value + 1) : 0;
+                        number2.value =
+                            (number2.value + 1) <= 3 ? (number2.value + 1) : 0;
+                        number3.value =
+                            (number3.value + 1) <= 3 ? (number3.value + 1) : 0;
+                        number4.value =
+                            (number4.value + 1) <= 3 ? (number4.value + 1) : 0;
+
+                        //--------------------
+                        // Next押下制御
+                        //--------------------
+                        // 押下不可
+                        nextTapControl.value = false;
+                      },
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(trainingUISize, trainingUISize),
+                        shape: const CircleBorder(),
+                        backgroundColor: AppColors.bgControlButton,
+                        textStyle: const TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                      child: Text(
+                        AppLocalizations.of(context)!.next,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-
-              // AnimatedSwitcher(
-              //   duration: const Duration(milliseconds: 200),
-              //   child: Text(
-              //     key: ValueKey(quiestion1.value),
-              //     quiestion1.value,
-              //     style: const TextStyle(
-              //       fontSize: 44,
-              //     ),
-              //   ),
-              // ),
-              // Text(
-              //   key: kCalculate2Key,
-              //   quiestion2.value,
-              //   style: const TextStyle(
-              //     fontSize: 32,
-              //   ),
-              // ),
-              // Text(
-              //   key: kCalculate3Key,
-              //   quiestion3.value,
-              //   style: const TextStyle(
-              //     fontSize: 24,
-              //   ),
-              // ),
-              //------------------------
-              // 操作ボタン
-              //------------------------
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(trainingUISize, trainingUISize),
-                      shape: const CircleBorder(),
-                      textStyle: const TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    child: const Text('Home'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      // 計算問題入れ替え
-                      quiestion1.value = quiestion2.value;
-                      quiestion2.value = quiestion3.value;
-                      quiestion3.value = Question().getFormula(operation);
-
-                      // 回答数カウント
-                      answerCounter.value++;
-
-                      deleteFormula();
-                      addFormula(operation);
-
-                      // RenderBox renderbox = kCalculate1Key.currentContext!
-                      //     .findRenderObject() as RenderBox;
-                      // Offset position = renderbox.localToGlobal(Offset.zero);
-                      // double x = position.dx;
-                      // double y = position.dy;
-
-                      // print(x); //20.0
-                      // print(y); //112.36363636363637
-                    },
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(trainingUISize, trainingUISize),
-                      shape: const CircleBorder(),
-                      textStyle: const TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    child: const Text('Next'),
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  /*
+  * 計算式widget構築制御
+  */
+  Widget _constrolBuildFormula(
+    List<String> formulas,
+    int number,
+    ValueNotifier<bool> nextTapControl,
+  ) {
+    //-------------------------------------------
+    // 位置に応じたアニメーションを行うwidgetを構築
+    //-------------------------------------------
+    switch (number) {
+      // 一番上
+      case 3:
+        return _buildFormula(
+          top: 0,
+          form: formulas[0],
+          duration: 200,
+          fontSize: 50,
+          nextTapControl: nextTapControl,
+        );
+
+      // 上から2番目
+      case 2:
+        return _buildFormula(
+          top: 80,
+          form: formulas[1],
+          duration: 200,
+          fontSize: 30,
+          nextTapControl: nextTapControl,
+        );
+
+      // 上から3番目
+      case 1:
+        return _buildFormula(
+          top: 140,
+          form: formulas[2],
+          duration: 200,
+          fontSize: 16,
+          nextTapControl: nextTapControl,
+        );
+
+      // 待機用
+      case 0:
+      default:
+        return _buildFormula(
+          top: 160,
+          form: '',
+          duration: 1,
+          fontSize: 0,
+          nextTapControl: nextTapControl,
+        );
+    }
+  }
+
+  /*
+  * 計算式widget構築
+  */
+  Widget _buildFormula({
+    required double top,
+    required String form,
+    required int duration,
+    required double fontSize,
+    required ValueNotifier<bool> nextTapControl,
+  }) {
+    //---------------------------------
+    // アニメーション：テキストサイズ
+    //---------------------------------
+    return AnimatedDefaultTextStyle(
+      style: TextStyle(fontSize: fontSize),
+      duration: Duration(milliseconds: duration),
+      curve: Curves.fastOutSlowIn,
+
+      //---------------------------------
+      // アニメーション：位置
+      //---------------------------------
+      child: AnimatedPositioned(
+        top: top,
+        duration: Duration(milliseconds: duration),
+        curve: Curves.fastOutSlowIn,
+        onEnd: () {
+          if (top == 0) {
+            // 最上部計算式のアニメーション終了で、NextUI押下可能にする
+            nextTapControl.value = true;
+          }
+        },
+        child: Text(
+          form,
+          style: const TextStyle(
+            color: AppColors.txFormula,
+          ),
+        ),
+      ),
+    );
+  }
+
+  /*
+  * 計算式リスト初期化
+  */
+  void initFormulaList(OperationSelector? operation) {
+    //--------------
+    // 初期設定
+    //--------------
+    formulaList[0] = Question().getFormula(operation);
+    formulaList[1] = Question().getFormula(operation);
+    formulaList[2] = Question().getFormula(operation);
   }
 }

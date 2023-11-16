@@ -36,7 +36,12 @@ class Training extends HookConsumerWidget {
     //------------------------
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
+    // トレーニング情報
+    final trainingAreaTopMargin = deviceWidth * 0.2;
+    final trainingAreaEdgePadding = deviceWidth * 0.1;
+    // トレーニングUI
     final trainingUISize = deviceWidth * 0.2;
+    // 計算式トップマージン
     final formulaTopMargin = deviceHeight * 0.12;
 
     //------------------------
@@ -107,7 +112,12 @@ class Training extends HookConsumerWidget {
         backgroundColor: Colors.transparent,
         body: Center(
           child: Container(
-            margin: const EdgeInsets.fromLTRB(0, 40, 0, 28),
+            margin: EdgeInsets.fromLTRB(
+              0,
+              trainingAreaTopMargin,
+              0,
+              trainingAreaTopMargin,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -115,7 +125,12 @@ class Training extends HookConsumerWidget {
                 // 画面上部
                 //------------------------
                 Container(
-                  margin: const EdgeInsets.fromLTRB(24, 0, 24, 0),
+                  margin: EdgeInsets.fromLTRB(
+                    trainingAreaEdgePadding,
+                    0,
+                    trainingAreaEdgePadding,
+                    0,
+                  ),
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       border: Border.all(

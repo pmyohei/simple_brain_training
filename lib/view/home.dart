@@ -69,6 +69,7 @@ class Home extends HookConsumerWidget {
     // 端末サイズ
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
+    print("deviceHeight=$deviceHeight");
     // ページ
     final homeTopMargin = deviceHeight * 0.1;
     final homeBottomMargin = deviceHeight * 0.05;
@@ -79,6 +80,7 @@ class Home extends HookConsumerWidget {
     final startUIResponsiveSize = deviceWidth * 0.3;
     final startUISize =
         (startUIResponsiveSize > 150.0) ? 150.0 : startUIResponsiveSize;
+    final startUICottomMargin = deviceHeight * 0.1;
     // 演算子選択ボタン
     final operationUIResponsiveSize = (deviceWidth * 0.7) / 4;
     final operationUISize =
@@ -147,7 +149,7 @@ class Home extends HookConsumerWidget {
                           0,
                           0,
                           0,
-                          homeTopMargin,
+                          startUICottomMargin,
                         ),
                         child: ElevatedButton(
                           onPressed: () {

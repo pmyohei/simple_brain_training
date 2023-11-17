@@ -5,20 +5,13 @@ import 'dart:math' as math;
 import '../view/home.dart';
 
 class Question {
-  Question() {
-    init();
-  }
-
-  /*
-   * 出題情報初期化
-   */
-  void init() {}
+  Question();
 
   /*
    * 計算式（足し算）の取得
    */
   String getFormula(OperationSelector? operation) {
-    switch (operation) {
+    switch (operation!) {
       case OperationSelector.plus:
         return getPlusFormula();
       case OperationSelector.minus:
@@ -27,8 +20,6 @@ class Question {
         return getMultiFormula();
       case OperationSelector.division:
         return getDivisionFormula();
-      default:
-        return ""; //★
     }
   }
 

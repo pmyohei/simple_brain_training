@@ -8,9 +8,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
 // Project imports:
-import 'package:simple_brain_training/configs/color.dart';
-import '../trainingLogic/question.dart';
 import './home.dart';
+import '../trainingLogic/question.dart';
+import 'package:simple_brain_training/configs/color.dart';
 
 /*
  * トレーニング画面

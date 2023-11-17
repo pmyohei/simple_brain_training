@@ -41,11 +41,11 @@ flutter_gen:
 
 flutter_icons:
   ios: true
-  image_path: "assets/images/app_ios_icon.png"
+  image_path: "assets/icons/app_ios_icon.png"
   remove_alpha_ios: true
   android: true
   adaptive_icon_background: "#FFFBF3"
-  adaptive_icon_foreground: "assets/images/app_android_adaptive_icon_foreground.png"
+  adaptive_icon_foreground: "assets/icons/app_android_adaptive_icon_foreground.png"
 
 flutter:
   uses-material-design: true

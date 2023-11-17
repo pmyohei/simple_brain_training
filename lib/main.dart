@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,7 +11,20 @@ import 'app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  //-----------
+  // Admob
+  //-----------
   MobileAds.instance.initialize();
-  // AdHelper.initialization();
-  runApp(const ProviderScope(child: SimpleBrainTrainingApp()));
+  //-----------
+  // 画面向き
+  //-----------
+  SystemChrome.setPreferredOrientations([
+    // 縦向きのみ許可
+    DeviceOrientation.portraitUp,
+  ]).then((_) {
+    //-----------
+    // App 起動
+    //-----------
+    runApp(const ProviderScope(child: SimpleBrainTrainingApp()));
+  });
 }

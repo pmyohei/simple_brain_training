@@ -1,4 +1,4 @@
-package com.example.simple_brain_training
+package com.kandg.simple_brain_training
 
 import io.flutter.embedding.android.FlutterActivity
 

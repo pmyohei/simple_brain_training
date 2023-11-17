@@ -6,11 +6,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
-import 'package:simple_brain_training/configs/color.dart';
 
 // Project imports:
-import './home.dart';
+import 'package:simple_brain_training/configs/color.dart';
 import '../trainingLogic/question.dart';
+import './home.dart';
 
 /*
  * トレーニング画面

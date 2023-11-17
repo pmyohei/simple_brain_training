@@ -18,6 +18,7 @@ dependencies:
   flutter_localizations:    # 多言語ライブラリの本体
     sdk: flutter  
   intl: "^0.18.1"           # 多言語やフォーマッタなどの関連ライブラリ
+  flutter_launcher_icons: "^0.13.1"
 
 
 dev_dependencies:
@@ -37,8 +38,16 @@ flutter_gen:
   integrations:
     flutter_svg: true
 
-flutter:
 
+flutter_icons:
+  ios: true
+  image_path: "assets/images/app_icon.png"
+  remove_alpha_ios: true
+  android: true
+  adaptive_icon_background: "#FFFBF3"
+  adaptive_icon_foreground: "assets/images/app_icon.png"
+
+flutter:
   uses-material-design: true
   generate: true
   

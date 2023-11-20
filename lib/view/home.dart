@@ -110,6 +110,9 @@ class Home extends HookConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              //---------------
+              // トレーニング説明
+              //---------------
               Expanded(
                 child: Container(
                   margin: EdgeInsets.fromLTRB(
@@ -121,6 +124,9 @@ class Home extends HookConsumerWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
+                      //---------------
+                      // トレーニング説明
+                      //---------------
                       SizedBox(
                         height: trainingExplanationHeight,
                         child: SingleChildScrollView(
@@ -134,7 +140,7 @@ class Home extends HookConsumerWidget {
                             child: Text(
                               AppLocalizations.of(context)!.training_message,
                               style: const TextStyle(
-                                fontSize: 14,
+                                fontSize: 16,
                                 color: AppColors.txAdvice,
                                 height: 1.8,
                               ),
@@ -143,6 +149,9 @@ class Home extends HookConsumerWidget {
                           ),
                         ),
                       ),
+                      //---------------
+                      // StartUI
+                      //---------------
                       Container(
                         margin: EdgeInsets.fromLTRB(
                           0,
@@ -177,6 +186,9 @@ class Home extends HookConsumerWidget {
                           ),
                         ),
                       ),
+                      //------------------
+                      // 演算子選択肢リスト
+                      //------------------
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[

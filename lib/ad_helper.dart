@@ -9,7 +9,7 @@ class AdHelper {
   //------------------------------
   // !本番環境ではtrueとすること
   //------------------------------
-  static bool release = false;
+  static bool release = true;
 
   /*
    * バナー広告ユニットIDの取得

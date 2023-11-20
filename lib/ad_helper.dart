@@ -32,22 +32,40 @@ class AdHelper {
   /*
    * バナー広告取得
    */
+  static void initializationAd() {
+    //--------------
+    // Admob初期化
+    //--------------
+    MobileAds.instance.initialize();
+
+    //----------------------
+    // 子供向けの設定
+    //----------------------
+    final requestConfiguration = RequestConfiguration(
+      tagForChildDirectedTreatment: TagForChildDirectedTreatment.yes,
+      maxAdContentRating: MaxAdContentRating.g,
+    );
+    MobileAds.instance.updateRequestConfiguration(requestConfiguration);
+  }
+
+  /*
+   * バナー広告取得
+   */
   static BannerAd getBannerAd() {
+    //----------------------
+    // バナー広告生成
+    //----------------------
     return BannerAd(
       adUnitId: bannerAdUnitId,
       size: AdSize.banner,
       request: const AdRequest(),
       listener: BannerAdListener(
-        // Called when an ad is successfully received.
-        onAdLoaded: (Ad ad) => print('Ad loaded.'),
-        // Called when an ad request failed.
+        onAdLoaded: (Ad ad) => (),
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           // Dispose the ad here to free resources.
           ad.dispose();
-          print('Ad failed to load: $error');
         },
         onAdClosed: (Ad ad) {
-          print('ad dispose.');
           ad.dispose();
         },
       ),

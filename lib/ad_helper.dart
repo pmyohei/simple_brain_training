@@ -22,7 +22,7 @@ class AdHelper {
     } else if (Platform.isIOS) {
       return release
           ? 'ca-app-pub-8046295810838892/3365339445'
-          : 'pub-3940256099942544/2934735716';
+          : 'ca-app-pub-3940256099942544/2934735716';
     } else {
       // throw UnsupportedError('Unsupported platform');
       return 'pub-3940256099942544/2934735716';

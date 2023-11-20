@@ -110,9 +110,9 @@ class Home extends HookConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              //---------------
-              // トレーニング説明
-              //---------------
+              //---------------------
+              // 画面本体（広告上部）
+              //---------------------
               Expanded(
                 child: Container(
                   margin: EdgeInsets.fromLTRB(
@@ -324,6 +324,9 @@ class Home extends HookConsumerWidget {
                   ),
                 ),
               ),
+              //------------------
+              // 広告
+              //------------------
               Container(
                 alignment: Alignment.center,
                 width: bannerAD.size.width.toDouble(),

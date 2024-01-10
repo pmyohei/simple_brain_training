@@ -1,3 +1,8 @@
+/* ==================================
+  Main
+    SimpleBrainTrainingAppを起動
+   ================================== */
+
 // Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

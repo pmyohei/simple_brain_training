@@ -22,7 +22,7 @@ class AppColors {
   // 文字色
   //---------------
   // トレーニングアドバイス
-  static const txAdvice = Colors.white;
+  static const txAdvice = Color.fromARGB(255, 121, 121, 121);
   // static const txAdvice = Color.fromARGB(255, 83, 83, 83);
   // 計算式
   static const txFormula = Color.fromARGB(255, 83, 83, 83);

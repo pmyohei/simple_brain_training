@@ -1,3 +1,9 @@
+/* ==================================
+  App
+    アプリの各種設定。
+    Home画面の起動を行う。
+   ================================== */
+
 // Flutter imports:
 import 'package:flutter/material.dart';
 

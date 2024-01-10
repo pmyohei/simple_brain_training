@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_test/flutter_test.dart';
+import 'package:simple_brain_training/app.dart';
 
 // Project imports:
 import 'package:simple_brain_training/view/home.dart';

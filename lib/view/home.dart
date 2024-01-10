@@ -1,3 +1,8 @@
+/* ==================================
+  Home画面
+    演算子の選択、計算画面
+   ================================== */
+
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +16,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 // Project imports:
 import 'package:simple_brain_training/configs/color.dart';
 import '../ad_helper.dart';
+import 'privacy_policy.dart';
 import 'training.dart';
 
 //------------------
@@ -127,27 +133,49 @@ class Home extends HookConsumerWidget {
                       //---------------
                       // トレーニング説明
                       //---------------
-                      SizedBox(
-                        height: trainingExplanationHeight,
-                        child: SingleChildScrollView(
-                          child: Padding(
-                            padding: EdgeInsets.fromLTRB(
-                              trainingExplanationEdgePadding,
-                              0,
-                              trainingExplanationEdgePadding,
-                              0,
-                            ),
-                            child: Text(
-                              AppLocalizations.of(context)!.training_message,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: AppColors.txAdvice,
-                                height: 1.8,
+                      Column(
+                        children: [
+                          // Container(
+                          //   alignment: Alignment.centerRight,
+                          //   child: IconButton(
+                          //     iconSize: 24,
+                          //     color: AppColors.txButton,
+                          //     onPressed: () {
+                          //       Navigator.of(context).push(
+                          //         CupertinoPageRoute(
+                          //           builder: (context) {
+                          //             return PrivacyPolicy();
+                          //           },
+                          //         ),
+                          //       );
+                          //     },
+                          //     icon: const Icon(Icons.security),
+                          //   ),
+                          // ),
+                          SizedBox(
+                            height: trainingExplanationHeight,
+                            child: SingleChildScrollView(
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(
+                                  trainingExplanationEdgePadding,
+                                  0,
+                                  trainingExplanationEdgePadding,
+                                  0,
+                                ),
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .training_message,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.txAdvice,
+                                    height: 1.8,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                              textAlign: TextAlign.center,
                             ),
                           ),
-                        ),
+                        ],
                       ),
                       //---------------
                       // StartUI
